@@ -105,18 +105,16 @@ export default function VersionControlPanel() {
     setSwitchingVersion(versionNumber);
 
     try {
-      // ✅ FIX: Use loadFromGitHub which has proper data transformation logic
-      // This ensures pages arrays are converted to objects, dates are parsed, etc.
+      // Load version from GitHub - this updates the Zustand store
+      // React will automatically re-render subscribed components
       await loadFromGitHub(CURRENT_BRANCH, versionNumber);
 
-      // Clear localStorage and sessionStorage to force fresh load
-      localStorage.removeItem("website-master-store");
-      sessionStorage.removeItem(`last-loaded-version-${REPO_OWNER}-${REPO_NAME}`);
-
-      // Navigate to editor with version param - this will trigger UI refresh
+      // Update URL to reflect the version (no page reload needed)
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set('version', versionNumber.toString());
-      window.location.href = currentUrl.pathname + currentUrl.search; // Use full reload to ensure fresh data
+      window.history.replaceState({}, '', currentUrl.pathname + currentUrl.search);
+
+      console.log(`✅ [VersionControl] Switched to version ${versionNumber}`);
     } catch (error) {
       console.error("❌ [VersionControl] Error switching version:", error);
       alert(`Failed to load version: ${error instanceof Error ? error.message : "Unknown error"}`);
