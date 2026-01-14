@@ -86,7 +86,6 @@ const CarouselHero: React.FC<CarouselHeroProps> = (props) => {
                 <div className="mt-6">
                   <ButtonComponent
                     text={buttonConfig.text}
-                    variant={buttonConfig.variant}
                     renderAction={renderAction}
                     style={{
                       backgroundColor: mainColor,

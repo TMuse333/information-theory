@@ -1,7 +1,16 @@
 import { ButtonAction, ButtonConfig } from "@/types/button";
 import { ButtonRenderAction } from "@/components/ui/buttons/buttonProps";
-import { DerivedColorPalette } from "@/lib/colorUtils/colorPalette";
 import { getLuminance } from "@/lib/colorUtils/colorMath";
+
+/**
+ * Minimal color context required for button color calculations.
+ * Compatible with DerivedColorPalette and simpler color objects.
+ */
+export interface ButtonColorContext {
+  mainColor: string;
+  whiteText: string;
+  darkText: string;
+}
 
 /**
  * Determines if a button should be rendered
@@ -15,7 +24,7 @@ export function shouldRenderButton(config?: ButtonConfig): boolean {
  */
 export function getButtonColors(
   buttonConfig: ButtonConfig,
-  componentColors: DerivedColorPalette
+  componentColors: ButtonColorContext
 ): { backgroundColor: string; textColor: string } {
   // Determine background color (override or default to mainColor)
   const backgroundColor = buttonConfig.colors?.background || componentColors.mainColor;
@@ -35,7 +44,7 @@ export function getButtonColors(
   // If background is dark (luminance <= 0.5), use white text
   const textColor = luminance > 0.5
     ? componentColors.darkText   // Light background → dark text
-    : "#FFFFFF"; // Dark background → white text
+    : componentColors.whiteText; // Dark background → white text
 
   return {
     backgroundColor,

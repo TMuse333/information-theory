@@ -1,15 +1,12 @@
-/**
- * Button Props - Template Stub
- * This file will be replaced with actual implementation during deployment
- */
-
+// Render props - what the button component receives after processing
 export type ButtonRenderAction =
   | { type: 'button'; onClick: () => void }
-  | { type: 'link'; href: string; target: '_self' | '_blank' };
+  | { type: 'link'; href: string; target?: '_blank' | '_self' };
 
-export interface ButtonBaseProps {
+export interface BaseButtonProps {
   text: string;
-  action: ButtonRenderAction;
-  backgroundColor?: string;
-  textColor?: string;
+  renderAction: ButtonRenderAction;
+  style?: React.CSSProperties;
+  className?: string;
+  disabled?: boolean;
 }

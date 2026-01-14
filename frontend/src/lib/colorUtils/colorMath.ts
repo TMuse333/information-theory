@@ -1,4 +1,5 @@
 export function darkenHexColor(hex: string, amount: number = 20): string {
+    if (!hex) return "#000000";
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -18,6 +19,7 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Lighten a hex color by increasing each RGB channel.
    */
   export function lightenHexColor(hex: string, amount: number = 20): string {
+    if (!hex) return "#FFFFFF";
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -37,6 +39,7 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Convert hex → rgba string with alpha
    */
   export function hexToRgba(hex: string, alpha: number): string {
+    if (!hex) return `rgba(0, 0, 0, ${alpha})`;
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -51,6 +54,7 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Append alpha to hex (e.g. "#ff0000" + 0.5 → "#ff000080")
    */
   export function hexWithAlpha(hex: string, alpha: number): string {
+    if (!hex) return "#00000080";
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -62,6 +66,7 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Invert a hex color (e.g. black → white).
    */
   export function invertHexColor(hex: string): string {
+    if (!hex) return "#FFFFFF";
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -77,6 +82,7 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Calculate relative luminance (WCAG standard).
    */
   export function getLuminance(hex: string): number {
+    if (!hex) return 0;
     hex = hex.replace(/^#/, "");
     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
   
@@ -102,6 +108,8 @@ export function darkenHexColor(hex: string, amount: number = 20): string {
    * Mix/blend two hex colors together by a weight.
    */
   export function mixHexColors(hex1: string, hex2: string, weight: number = 0.5): string {
+    if (!hex1) hex1 = "#000000";
+    if (!hex2) hex2 = "#FFFFFF";
     hex1 = hex1.replace(/^#/, "");
     hex2 = hex2.replace(/^#/, "");
     if (hex1.length === 3) hex1 = hex1.split("").map(c => c + c).join("");

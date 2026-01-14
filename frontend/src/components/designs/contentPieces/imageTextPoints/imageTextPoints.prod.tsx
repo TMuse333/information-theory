@@ -131,7 +131,6 @@ const ImageTextPoints: React.FC<ImageTextPointsProps> = (props) => {
               >
                 <ButtonComponent
                   text={buttonConfig.text}
-                  variant={buttonConfig.variant}
                   renderAction={renderAction}
                   style={{
                     backgroundColor: buttonColors.backgroundColor,

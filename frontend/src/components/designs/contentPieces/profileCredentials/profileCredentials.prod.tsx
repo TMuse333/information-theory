@@ -125,7 +125,6 @@ const ProfileCredentials: React.FC<ProfileCredentialsProps> = (props) => {
                     <div className="mt-4">
                       <ButtonComponent
                         text={buttonConfig.text}
-                        variant={buttonConfig.variant}
                         renderAction={renderAction}
                         style={{
                           backgroundColor: buttonColors.backgroundColor,

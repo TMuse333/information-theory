@@ -202,7 +202,6 @@ const ImageTextPointsEdit: React.FC<EditorialComponentProps> = ({ id }) => {
               >
                 <ButtonComponent
                   text={buttonConfig.text}
-                  variant={buttonConfig.variant}
                   renderAction={renderAction}
                   style={{
                     backgroundColor: buttonColors.backgroundColor,

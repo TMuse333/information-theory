@@ -187,7 +187,6 @@ const LeftTextSection = ({ componentProps, updateProp, id, colors, buttonConfig 
             <div className="mt-6">
               <ButtonComponent
                 text={buttonConfig.text}
-                variant={buttonConfig.variant}
                 renderAction={renderAction}
                 style={{
                   backgroundColor: buttonColors.backgroundColor,

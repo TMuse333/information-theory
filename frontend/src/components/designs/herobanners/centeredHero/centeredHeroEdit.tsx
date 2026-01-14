@@ -147,7 +147,6 @@ const CenteredHeroEdit: React.FC<EditorialComponentProps> = ({ id }) => {
             return (
               <ButtonComponent
                 text={buttonConfig.text}
-                variant={buttonConfig.variant}
                 renderAction={renderAction}
                 style={{
                   backgroundColor: buttonColors.backgroundColor,
