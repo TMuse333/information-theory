@@ -1,41 +1,1261 @@
 {
-  "templateName": "blank",
-  "websiteName": "My Website",
+  "templateName": "Multi-Page Showcase",
+  "formData": {
+    "fastTrackDescription": {
+      "answer": "we use information theory to reduce uncertainty in important decediosn... we also take  a simialr cyber security approach to lead gen as everyones \"trust\" has to be earned and we must reduce untrust"
+    },
+    "mainColor": {
+      "answer": "#00BFFF"
+    },
+    "baseBgColor": {
+      "answer": "#000000"
+    },
+    "textColor": {
+      "answer": "#FFFFFF"
+    },
+    "bgLayoutType": {
+      "answer": "radial"
+    },
+    "additionalInfo": {
+      "answer": "we use information theory to reduce uncertainty in important decediosn... we also take  a simialr cyber security approach to lead gen as everyones \"trust\" has to be earned and we must reduce untrust"
+    }
+  },
+  "pages": [
+    {
+      "components": [
+        {
+          "id": "navbar1-0",
+          "type": "navbar1",
+          "order": 0,
+          "context": "Advanced navigation bar with submenu support, gradients, and animations",
+          "componentCategory": "navbar",
+          "props": {
+            "tabs": [
+              {
+                "type": "link",
+                "label": "Home",
+                "href": "index"
+              },
+              {
+                "type": "link",
+                "label": "About",
+                "href": "about"
+              },
+              {
+                "type": "link",
+                "label": "Services",
+                "href": "services"
+              },
+              {
+                "type": "link",
+                "label": "Contact",
+                "href": "contact"
+              }
+            ],
+            "textColor": "#1A1A1A",
+            "baseBgColor": "#FFFFFF",
+            "mainColor": "#00BFFF",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "logoText": "Unnamed Website",
+            "logoAlt": "FastTrack Logo",
+            "sticky": "true",
+            "alignment": "center",
+            "array": [],
+            "hoverColor": "#00BFFF"
+          }
+        },
+        {
+          "id": "auroraImageHero-1",
+          "type": "auroraImageHero",
+          "order": 1,
+          "context": "A hero banner at the top to introduce branding",
+          "componentCategory": "hero",
+          "props": {
+            "subTitle": "Transform Your Decisions",
+            "title": "Data-Driven Insights for Success",
+            "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "imageTextBox-2",
+          "type": "imageTextBox",
+          "order": 2,
+          "context": "Highlights a product or service with image + text",
+          "componentCategory": "imageText",
+          "props": {
+            "title": "Empower Your Business Today",
+            "description": "Leverage our expertise in information theory and cybersecurity to make informed choices and build trust in your operations.",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "textAndList-3",
+          "type": "textAndList",
+          "order": 3,
+          "context": "Provides a bulleted list of features/benefits",
+          "componentCategory": "textComponent",
+          "props": {
+            "subTitle": "Why Choose Us?",
+            "title": "Our Key Advantages",
+            "description": "Discover the benefits that set us apart in the industry.",
+            "array": [
+              {
+                "title": "Expert Analysis",
+                "description": "We utilize advanced data analysis techniques to inform your strategies.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Trust Building",
+                "description": "Our approach ensures that trust is earned through transparency and reliability.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Cybersecurity Focus",
+                "description": "We integrate cybersecurity principles into our lead generation strategies.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Tailored Solutions",
+                "description": "Our services are customized to meet the unique needs of your business.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Continuous Support",
+                "description": "We offer ongoing support to guide you in your journey towards success.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "imageTextPoints-4",
+          "type": "imageTextPoints",
+          "order": 4,
+          "context": "Shows visual steps or key points with images",
+          "componentCategory": "imageText",
+          "props": {
+            "title": "Our Process",
+            "description": "Follow our structured approach to achieve your goals.",
+            "array": [
+              {
+                "title": "Step 1: Assessment",
+                "description": "We assess your current situation to identify areas of improvement.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Step 2: Strategy Development",
+                "description": "We develop a tailored strategy based on your unique challenges.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Step 3: Implementation",
+                "description": "We implement the strategy while ensuring continuous feedback and adjustments.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "testimonials3-5",
+          "type": "testimonials3",
+          "order": 5,
+          "context": "Showcases previous testimonials",
+          "componentCategory": "testimonial",
+          "props": {
+            "testimonials": [
+              {
+                "name": "John Doe",
+                "role": "CEO at Tech Innovations",
+                "quote": "FastTrack transformed our decision-making process and built trust with our clients."
+              },
+              {
+                "name": "Jane Smith",
+                "role": "Marketing Director at Brand Solutions",
+                "quote": "Their data-driven insights have been invaluable for our growth."
+              }
+            ],
+            "title": "What Our Clients Say",
+            "description": "Hear from those who have experienced our transformative services.",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "contactCloser-6",
+          "type": "contactCloser",
+          "order": 6,
+          "context": "Simple contact section with email form and contact methods",
+          "componentCategory": "misc",
+          "props": {
+            "title": "Get in Touch",
+            "description": "Ready to elevate your decision-making process? Contact us today!",
+            "buttonText": "Submit",
+            "email": "info@fasttrackanalytics.com",
+            "phone": "+1-800-555-0199",
+            "facebookUrl": "https://facebook.com/fasttrackanalytics",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "footer1-7",
+          "type": "footer1",
+          "order": 7,
+          "context": "The last element of the website with contact info and navigation of the website",
+          "componentCategory": "footer",
+          "props": {
+            "logoSrc": "https://example.com/logo.png",
+            "logoAlt": "FastTrack Logo",
+            "brandName": "Unnamed Website",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#1A1A1A",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "navItems": [
+              {
+                "name": "Home",
+                "href": "index"
+              },
+              {
+                "name": "About",
+                "href": "about"
+              },
+              {
+                "name": "Services",
+                "href": "services"
+              },
+              {
+                "name": "Contact",
+                "href": "contact"
+              }
+            ],
+            "socialLinks": [
+              {
+                "name": "real",
+                "href": "f",
+                "platform": "instagram"
+              }
+            ]
+          }
+        }
+      ],
+      "pageName": "Home",
+      "slug": "index"
+    },
+    {
+      "components": [
+        {
+          "id": "navbar1-0",
+          "type": "navbar1",
+          "order": 0,
+          "context": "Advanced navigation bar with submenu support, gradients, and animations",
+          "componentCategory": "navbar",
+          "props": {
+            "tabs": [
+              {
+                "type": "link",
+                "label": "Home",
+                "href": "index"
+              },
+              {
+                "type": "link",
+                "label": "About",
+                "href": "about"
+              },
+              {
+                "type": "link",
+                "label": "Services",
+                "href": "services"
+              },
+              {
+                "type": "link",
+                "label": "Contact",
+                "href": "contact"
+              }
+            ],
+            "textColor": "#1A1A1A",
+            "baseBgColor": "#FFFFFF",
+            "mainColor": "#00BFFF",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "logoText": "Unnamed Website",
+            "logoAlt": "FastTrack Logo",
+            "sticky": "true",
+            "alignment": "left",
+            "array": [],
+            "hoverColor": "#00BFFF"
+          }
+        },
+        {
+          "id": "carouselHero-1",
+          "type": "carouselHero",
+          "order": 1,
+          "context": "A hero banner with a carousel/slideshow of images",
+          "componentCategory": "carousel",
+          "props": {
+            "subTitle": "Transforming Your Decisions",
+            "title": "Empowering Choices with Information Theory",
+            "description": "We leverage cutting-edge information theory to minimize uncertainty in critical decision-making processes.",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "experienceCard-2",
+          "type": "experienceCard",
+          "order": 2,
+          "context": "A card to display key experiences, features, or highlights with image, text, and list items.",
+          "componentCategory": "contentPiece",
+          "props": {
+            "title": "Key Features of FastTrack",
+            "description": "Discover how we enhance decision-making and lead generation using advanced techniques and trusted approaches.",
+            "subTitle": "Our Unique Aspects",
+            "array": [
+              {
+                "title": "Information Theory",
+                "description": "Utilizing data to clarify complex decisions.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Cyber Security Approach",
+                "description": "Building trust through secure lead generation.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Reduced Uncertainty",
+                "description": "Minimizing risks in decision-making processes.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Proven Methodologies",
+                "description": "Adopting strategies backed by research and results.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Client-Centric Focus",
+                "description": "Prioritizing our clients' needs and trust.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "uniqueValueProposition-3",
+          "type": "uniqueValueProposition",
+          "order": 3,
+          "context": "A 3 column grid where you can display unique value propositions about your service",
+          "componentCategory": "textComponent",
+          "props": {
+            "subTitle": "Why Choose Us?",
+            "title": "Unique Value Propositions of FastTrack",
+            "array": [
+              {
+                "title": "Data-Driven Insights",
+                "description": "Make informed decisions with actionable insights.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Expert Guidance",
+                "description": "Receive support from industry professionals.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Trustworthy Solutions",
+                "description": "Earn and maintain client trust through transparency.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Innovative Techniques",
+                "description": "Stay ahead with our cutting-edge strategies.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "processSteps-4",
+          "type": "processSteps",
+          "order": 4,
+          "context": "This component provides a vertical line down the middle of the screen where each step of the process appears on alternating sides",
+          "componentCategory": "textComponent",
+          "props": {
+            "subTitle": "Our Simple Process",
+            "title": "How FastTrack Works",
+            "description": "Follow our streamlined process to achieve clarity and trust in your decisions.",
+            "array": [
+              {
+                "title": "Initial Consultation",
+                "description": "Discuss your needs and objectives with our team.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Analysis Phase",
+                "description": "We analyze data to identify key insights.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Implementation",
+                "description": "Apply tailored strategies to enhance your decision-making.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Ongoing Support",
+                "description": "Receive continuous support and adjustments as needed.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "testimonialsRealEstate-5",
+          "type": "testimonialsRealEstate",
+          "order": 5,
+          "context": "Uses quotations as well as an optional image to display testimonials",
+          "componentCategory": "testimonial",
+          "props": {
+            "title": "What Our Clients Say",
+            "description": "Hear from those who trust FastTrack for their decision-making needs.",
+            "testimonials": [
+              {
+                "name": "John Doe",
+                "role": "Business Owner",
+                "quote": "FastTrack has transformed how I make decisions!",
+                "src": "",
+                "alt": ""
+              },
+              {
+                "name": "Jane Smith",
+                "role": "Marketing Director",
+                "quote": "Their insights are invaluable for our strategy.",
+                "src": "",
+                "alt": ""
+              },
+              {
+                "name": "Emily Johnson",
+                "role": "Entrepreneur",
+                "quote": "I trust FastTrack completely with my business decisions.",
+                "src": "",
+                "alt": ""
+              }
+            ],
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "scrollCarousel-6",
+          "type": "scrollCarousel",
+          "order": 6,
+          "context": "A basic carousel where you can scroll and slide through each item",
+          "componentCategory": "carousel",
+          "props": {
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "contactCloser-7",
+          "type": "contactCloser",
+          "order": 7,
+          "context": "Simple contact section with email form and contact methods",
+          "componentCategory": "misc",
+          "props": {
+            "title": "Get in Touch with Us",
+            "description": "Ready to elevate your decision-making? Contact us today!",
+            "buttonText": "Submit",
+            "email": "info@fasttrack.com",
+            "phone": "+1234567890",
+            "facebookUrl": "https://facebook.com/fasttrack",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "footer1-8",
+          "type": "footer1",
+          "order": 8,
+          "context": "The last element of the website with contact info and navigation of the website",
+          "componentCategory": "footer",
+          "props": {
+            "logoSrc": "",
+            "logoAlt": "FastTrack Footer Logo",
+            "brandName": "Unnamed Website",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#1A1A1A",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "navItems": [
+              {
+                "name": "Home",
+                "href": "index"
+              },
+              {
+                "name": "About",
+                "href": "about"
+              },
+              {
+                "name": "Services",
+                "href": "services"
+              },
+              {
+                "name": "Contact",
+                "href": "contact"
+              }
+            ],
+            "socialLinks": [
+              {
+                "name": "real",
+                "href": "f",
+                "platform": "instagram"
+              }
+            ]
+          }
+        }
+      ],
+      "pageName": "About",
+      "slug": "about"
+    },
+    {
+      "components": [
+        {
+          "id": "navbar1-0",
+          "type": "navbar1",
+          "order": 0,
+          "context": "Advanced navigation bar with submenu support, gradients, and animations",
+          "componentCategory": "navbar",
+          "props": {
+            "tabs": [
+              {
+                "type": "link",
+                "label": "Home",
+                "href": "index"
+              },
+              {
+                "type": "link",
+                "label": "About",
+                "href": "about"
+              },
+              {
+                "type": "link",
+                "label": "Services",
+                "href": "services"
+              },
+              {
+                "type": "link",
+                "label": "Contact",
+                "href": "contact"
+              }
+            ],
+            "textColor": "#1A1A1A",
+            "baseBgColor": "#FFFFFF",
+            "mainColor": "#00BFFF",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "logoText": "Unnamed Website",
+            "logoAlt": "FastTrack Realty Logo",
+            "sticky": "true",
+            "alignment": "center",
+            "array": [],
+            "hoverColor": "#00BFFF"
+          }
+        },
+        {
+          "id": "splitScreenHero-1",
+          "type": "splitScreenHero",
+          "order": 1,
+          "context": "A herobanneris great to show some statistics of your career and nice property in the other half",
+          "componentCategory": "hero",
+          "props": {
+            "title": "Your Trusted Real Estate Partner",
+            "subTitle": "Expert Guidance for Every Step",
+            "description": "With years of experience, we navigate the real estate market to find your dream property.",
+            "array": [
+              {
+                "title": "10+ Years",
+                "description": "Years of combined real estate experience.",
+                "type": "StandardText"
+              },
+              {
+                "title": "500+ Homes Sold",
+                "description": "Successfully sold properties across the region.",
+                "type": "StandardText"
+              },
+              {
+                "title": "95% Client Satisfaction",
+                "description": "Our clients consistently rate us highly.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "profileCredentials-2",
+          "type": "profileCredentials",
+          "order": 2,
+          "context": "A very nice way to introduce your brand as well as give some credentials in list form",
+          "componentCategory": "contentPiece",
+          "props": {
+            "title": "Meet Our Team",
+            "subTitle": "Dedicated Professionals at Your Service",
+            "description": "Our team is passionate about real estate and committed to providing exceptional service to our clients. We leverage our expertise to ensure your success.",
+            "array": [
+              {
+                "title": "Licensed Agents",
+                "description": "All team members are fully licensed and experienced.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Certified Negotiators",
+                "description": "Expertise in negotiations for the best deals.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Local Market Experts",
+                "description": "Deep understanding of the local real estate landscape.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Award-Winning Service",
+                "description": "Recognized for outstanding client service in the industry.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "propertyCarousel-3",
+          "type": "propertyCarousel",
+          "order": 3,
+          "context": "A basic carousel where you can scroll and slide through each item",
+          "componentCategory": "carousel",
+          "props": {
+            "title": "Featured Properties",
+            "subTitle": "Explore Our Exclusive Listings",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "marketingShowcase-4",
+          "type": "marketingShowcase",
+          "order": 4,
+          "context": "A very nice way to introduce your brand as well as give some credentials in list form",
+          "componentCategory": "contentPiece",
+          "props": {
+            "title": "Innovative Marketing Strategies",
+            "subTitle": "Maximizing Your Property's Exposure",
+            "description": "Our cutting-edge marketing approach combines traditional and digital techniques to attract buyers effectively.",
+            "array": [
+              {
+                "title": "Social Media Marketing",
+                "description": "Engaging campaigns across all platforms.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Professional Photography",
+                "description": "High-quality images to showcase your property.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Virtual Tours",
+                "description": "Interactive tours to engage potential buyers.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Targeted Advertising",
+                "description": "Ads tailored to reach the right audience.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "processSteps-5",
+          "type": "processSteps",
+          "order": 5,
+          "context": "This component provides a vertical line down the middle of the screen where each step of the process appears on alternating sides",
+          "componentCategory": "textComponent",
+          "props": {
+            "subTitle": "Our Simple Process",
+            "title": "Guiding You Home",
+            "description": "We make the buying or selling experience seamless and straightforward, ensuring you are informed at every step.",
+            "array": [
+              {
+                "title": "Consultation",
+                "description": "Discuss your needs and goals with our team.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Market Analysis",
+                "description": "Receive a detailed analysis of market conditions.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Property Search",
+                "description": "We help you find properties that fit your criteria.",
+                "type": "StandardText"
+              },
+              {
+                "title": "Closing",
+                "description": "Finalizing the deal with expert support.",
+                "type": "StandardText"
+              }
+            ],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "testimonialsRealEstate-6",
+          "type": "testimonialsRealEstate",
+          "order": 6,
+          "context": "Uses quotations as well as an optional image to display testimonials",
+          "componentCategory": "testimonial",
+          "props": {
+            "title": "What Our Clients Say",
+            "description": "Hear from those who have worked with us.",
+            "testimonials": [
+              {
+                "name": "John Doe",
+                "role": "Homebuyer",
+                "quote": "FastTrack Realty made buying my first home a breeze!",
+                "src": "",
+                "alt": ""
+              },
+              {
+                "name": "Jane Smith",
+                "role": "Seller",
+                "quote": "Their marketing strategies got my house sold quickly and at a great price.",
+                "src": "",
+                "alt": ""
+              },
+              {
+                "name": "Mark Johnson",
+                "role": "Investor",
+                "quote": "Professional and knowledgeable, they guided me through every step.",
+                "src": "",
+                "alt": ""
+              }
+            ],
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "contactCloser-7",
+          "type": "contactCloser",
+          "order": 7,
+          "context": "Simple contact section with email form and contact methods",
+          "componentCategory": "misc",
+          "props": {
+            "title": "Get In Touch",
+            "description": "We're here to help with all your real estate needs.",
+            "buttonText": "Contact Us",
+            "email": "info@fasttrackrealty.com",
+            "phone": "(123) 456-7890",
+            "facebookUrl": "https://facebook.com/fasttrackrealty",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "footer1-8",
+          "type": "footer1",
+          "order": 8,
+          "context": "The last element of the website with contact info and navigation of the website",
+          "componentCategory": "footer",
+          "props": {
+            "logoSrc": "https://www.fasttrackrealty.com/logo.png",
+            "logoAlt": "FastTrack Realty Logo",
+            "brandName": "Unnamed Website",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#1A1A1A",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "navItems": [
+              {
+                "name": "Home",
+                "href": "index"
+              },
+              {
+                "name": "About",
+                "href": "about"
+              },
+              {
+                "name": "Services",
+                "href": "services"
+              },
+              {
+                "name": "Contact",
+                "href": "contact"
+              }
+            ],
+            "socialLinks": [
+              {
+                "name": "real",
+                "href": "f",
+                "platform": "instagram"
+              }
+            ]
+          }
+        }
+      ],
+      "pageName": "Services",
+      "slug": "services"
+    },
+    {
+      "components": [
+        {
+          "id": "navbar1-0",
+          "type": "navbar1",
+          "order": 0,
+          "context": "Advanced navigation bar with submenu support, gradients, and animations",
+          "componentCategory": "navbar",
+          "props": {
+            "tabs": [
+              {
+                "type": "link",
+                "label": "Home",
+                "href": "index"
+              },
+              {
+                "type": "link",
+                "label": "About",
+                "href": "about"
+              },
+              {
+                "type": "link",
+                "label": "Services",
+                "href": "services"
+              },
+              {
+                "type": "link",
+                "label": "Contact",
+                "href": "contact"
+              }
+            ],
+            "textColor": "#1A1A1A",
+            "baseBgColor": "#FFFFFF",
+            "mainColor": "#00BFFF",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "logoText": "Unnamed Website",
+            "logoAlt": "FastTrack Logo",
+            "sticky": "true",
+            "alignment": "center",
+            "array": [],
+            "hoverColor": "#00BFFF"
+          }
+        },
+        {
+          "id": "centeredHero-1",
+          "type": "centeredHero",
+          "order": 1,
+          "context": "A clean, centered hero section perfect for minimalist designs",
+          "componentCategory": "hero",
+          "props": {
+            "subTitle": "Empowering Your Decisions",
+            "title": "Harness Information Theory for Better Choices",
+            "description": "We specialize in reducing uncertainty in important decisions, ensuring you make informed choices with confidence.",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "contactCloser-2",
+          "type": "contactCloser",
+          "order": 2,
+          "context": "Simple contact section with email form and contact methods",
+          "componentCategory": "misc",
+          "props": {
+            "title": "Get in Touch",
+            "description": "Have questions? Reach out to us for personalized support and insights tailored to your needs.",
+            "buttonText": "Contact Us",
+            "email": "info@fasttrackinsights.com",
+            "phone": "+1 (555) 012-3456",
+            "facebookUrl": "https://facebook.com/fasttrackinsights",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#000000",
+            "bgLayout": {
+              "type": "radial",
+              "radialSize": "125% 125%",
+              "radialPosition": "50% 0%",
+              "radialBaseStop": 50
+            }
+          }
+        },
+        {
+          "id": "footer1-3",
+          "type": "footer1",
+          "order": 3,
+          "context": "The last element of the website with contact info and navigation of the website",
+          "componentCategory": "footer",
+          "props": {
+            "logoSrc": "https://example.com/logo.png",
+            "logoAlt": "FastTrack Logo",
+            "brandName": "Unnamed Website",
+            "array": [],
+            "mainColor": "#00BFFF",
+            "textColor": "#FFFFFF",
+            "baseBgColor": "#1A1A1A",
+            "bgLayout": {
+              "type": "solid"
+            },
+            "navItems": [
+              {
+                "name": "Home",
+                "href": "index"
+              },
+              {
+                "name": "About",
+                "href": "about"
+              },
+              {
+                "name": "Services",
+                "href": "services"
+              },
+              {
+                "name": "Contact",
+                "href": "contact"
+              }
+            ],
+            "socialLinks": [
+              {
+                "name": "real",
+                "href": "f",
+                "platform": "instagram"
+              }
+            ]
+          }
+        }
+      ],
+      "pageName": "Contact",
+      "slug": "contact"
+    }
+  ],
   "status": "draft",
+  "owner": "focusflowsoftware@gmail.com",
+  "websiteName": "Unnamed Website",
+  "projectName": "information-theory",
+  "projectSlug": "information-theory",
   "currentVersionNumber": 0,
+  "initialPaymentCompleted": false,
+  "initialPaymentRefunded": false,
+  "deploymentPaymentCompleted": false,
+  "deploymentPaymentRefunded": false,
+  "ownerId": "68faa4f13b35617c47b96056",
+  "theme": {
+    "colors": {
+      "primary": "#00BFFF",
+      "secondary": "#0080FF",
+      "background": "#FFFFFF",
+      "surface": "#F9FAFB",
+      "text": {
+        "primary": "#1A1A1A",
+        "secondary": "#666666",
+        "onPrimary": "#FFFFFF",
+        "onSecondary": "#FFFFFF"
+      },
+      "navbar": {
+        "background": "#FFFFFF",
+        "text": "#1A1A1A",
+        "hover": "#00BFFF"
+      },
+      "button": {
+        "primary": "#00BFFF",
+        "secondary": "#0080FF",
+        "text": "#FFFFFF"
+      },
+      "footer": {
+        "background": "#1A1A1A",
+        "text": "#FFFFFF"
+      }
+    },
+    "fonts": {
+      "heading": "Inter, system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif"
+    }
+  },
+  "navbarConfig": {
+    "items": [
+      {
+        "type": "link",
+        "label": "Home",
+        "href": "index"
+      },
+      {
+        "type": "link",
+        "label": "About",
+        "href": "about"
+      },
+      {
+        "type": "link",
+        "label": "Services",
+        "href": "services"
+      },
+      {
+        "type": "link",
+        "label": "Contact",
+        "href": "contact"
+      }
+    ],
+    "isAutoGenerated": true,
+    "lastGenerated": "2026-01-13T22:41:44.831Z"
+  },
+  "footerConfig": {
+    "sections": [
+      {
+        "title": "Quick Links",
+        "type": "navigation",
+        "links": [
+          {
+            "label": "Home",
+            "href": "index",
+            "type": "internal"
+          },
+          {
+            "label": "About",
+            "href": "about",
+            "type": "internal"
+          },
+          {
+            "label": "Services",
+            "href": "services",
+            "type": "internal"
+          },
+          {
+            "label": "Contact",
+            "href": "contact",
+            "type": "internal"
+          }
+        ]
+      },
+      {
+        "title": "Legal",
+        "type": "legal",
+        "links": [
+          {
+            "label": "Privacy Policy",
+            "href": "/privacy",
+            "type": "internal"
+          },
+          {
+            "label": "Terms of Service",
+            "href": "/terms",
+            "type": "internal"
+          }
+        ]
+      }
+    ],
+    "bottomBar": {
+      "copyright": "© 2026 Unnamed Website. All rights reserved."
+    },
+    "isAutoGenerated": true,
+    "lastGenerated": "2026-01-13T22:41:44.835Z"
+  },
   "colorTheme": {
-    "primary": "#3B82F6",
-    "text": "#FFFFFF",
+    "primary": "#00BFFF",
     "background": "#000000",
+    "text": "#FFFFFF",
     "bgLayout": {
-      "type": "solid"
+      "type": "radial",
+      "radialSize": "125% 125%",
+      "radialPosition": "50% 0%",
+      "radialBaseStop": 50
     }
-  },
-  "seoMetadata": {},
-  "pages": {
-    "index": {
-      "id": "index",
-      "name": "Home",
-      "path": "/",
-      "components": []
-    }
-  },
-  "deployment": {
-    "githubOwner": "",
-    "githubRepo": "",
-    "vercelProjectId": "",
-    "vercelProductionUrl": "",
-    "lastDeploymentStatus": "pending",
-    "customDomain": null,
-    "totalDeployments": 0,
-    "successfulDeployments": 0,
-    "failedDeployments": 0,
-    "lastDeploymentId": null,
-    "lastCommitSha": null,
-    "lastBuildTime": null
-  },
-  "formData": {},
-  "ownerId": "",
-  "createdAt": "2024-01-01T00:00:00.000Z",
-  "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
 }
