@@ -73,8 +73,8 @@
           "context": "A hero banner at the top to introduce branding",
           "componentCategory": "hero",
           "props": {
-            "subTitle": "modern use of information theory",
-            "title": "data driven data structures",
+            "subTitle": "Transform Your Decisions",
+            "title": "information theory is great!",
             "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -1258,6 +1258,6 @@
       "radialBaseStop": 50
     }
   },
-  "createdAt": "2026-01-14T20:46:12.394Z",
-  "updatedAt": "2026-01-14T21:45:47.365Z"
+  "createdAt": "2026-01-14T22:05:29.585Z",
+  "updatedAt": "2026-01-14T22:05:39.353Z"
 }
