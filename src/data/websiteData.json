@@ -73,12 +73,17 @@
           "context": "A hero banner at the top to introduce branding",
           "componentCategory": "hero",
           "props": {
+<<<<<<< HEAD
             "subTitle": "Transform Your Decisions",
 <<<<<<< HEAD
             "title": "info theory Is great!",
 =======
             "title": "information theory is cool!",
 >>>>>>> 62a4bbfc97fda2b5a5d26101aaaaaed137486886
+=======
+            "subTitle": "statistically guarnteed success",
+            "title": "information theory driven development ",
+>>>>>>> c3236614de27316728e8320fb8e571be8e1dd50f
             "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -1136,7 +1141,7 @@
   "websiteName": "Unnamed Website",
   "projectName": "information-theory",
   "projectSlug": "information-theory",
-  "currentVersionNumber": 8,
+  "currentVersionNumber": 14,
   "initialPaymentCompleted": false,
   "initialPaymentRefunded": false,
   "deploymentPaymentCompleted": false,
@@ -1263,6 +1268,7 @@
     }
 <<<<<<< HEAD
   },
+<<<<<<< HEAD
   "createdAt": "2026-01-15T03:29:39.337Z",
   "updatedAt": "2026-01-15T03:29:47.438Z"
 }
@@ -1270,3 +1276,8 @@
   }
 }
 >>>>>>> 62a4bbfc97fda2b5a5d26101aaaaaed137486886
+=======
+  "createdAt": "2026-01-15T05:09:04.347Z",
+  "updatedAt": "2026-01-15T05:33:09.378Z"
+}
+>>>>>>> c3236614de27316728e8320fb8e571be8e1dd50f

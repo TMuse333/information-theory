@@ -7,7 +7,6 @@ import { EditorialComponentProps } from "@/types/editorial";
 import { footer1Details, Footer1Props } from ".";
 import Footer1 from "./footer1";
 import useWebsiteStore from "@/stores/websiteStore";
-import { useWebsiteMasterStore } from "@/stores/websiteMasterStore";
 import { useComponentEditor } from "@/context";
 import { handleComponentClick, useSyncColorEdits, useSyncPageDataToComponent } from "@/lib/hooks/hooks";
 import { deriveColorPalette } from "@/lib/colorUtils";
@@ -41,9 +40,7 @@ const initialFooterProps: Footer1Props = {
 };
 
 export const Footer1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
-  const { currentPageData, currentPageSlug, updateComponentProps } = useWebsiteStore();
-  const websiteMaster = useWebsiteMasterStore((state) => state.websiteMaster);
-  const { switchToPage, currentPageIndex } = useWebsiteMasterStore();
+  const { currentPageData, currentPageSlug, updateComponentProps, websiteData, setCurrentPageSlug } = useWebsiteStore();
   const { currentComponent, setCurrentComponent, setAssistantMessage, currentColorEdits, setCurrentColorEdits } =
     useComponentEditor();
 
@@ -125,7 +122,7 @@ export const Footer1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!href || !websiteMaster) return;
+    if (!href || !websiteData) return;
 
     // Normalize slugs for comparison
     const normalizeSlug = (slug: string | undefined) => {
@@ -134,17 +131,18 @@ export const Footer1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
     };
 
     const targetSlug = normalizeSlug(href);
+    const currentSlug = normalizeSlug(currentPageSlug);
 
     // Find the page by slug
-    const pageIndex = websiteMaster.pages.findIndex(p => {
+    const targetPage = websiteData.pages?.find(p => {
       const pageSlug = normalizeSlug(p.slug);
       return pageSlug === targetSlug ||
              (targetSlug === '' && (pageSlug === '' || pageSlug === 'index')) ||
              (targetSlug === 'index' && pageSlug === '');
     });
 
-    if (pageIndex !== -1 && pageIndex !== currentPageIndex) {
-      switchToPage(pageIndex);
+    if (targetPage && normalizeSlug(targetPage.slug) !== currentSlug) {
+      setCurrentPageSlug(targetPage.slug || 'index');
     }
   };
 

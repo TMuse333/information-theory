@@ -6,7 +6,6 @@ import Image from "next/image";
 import { EditorialComponentProps, NavItem } from "@/types";
 import { NavbarProps } from "@/types/navbar";
 import useWebsiteStore from "@/stores/websiteStore";
-import { useWebsiteMasterStore } from "@/stores/websiteMasterStore";
 import { useComponentEditor } from "@/context";
 import { handleComponentClick, useSyncColorEdits, useSyncPageDataToComponent } from "@/lib/hooks/hooks";
 import { navbar1Details, Navbar1Props } from ".";
@@ -37,12 +36,12 @@ const initialProps: NavbarProps = {
 };
 
 export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
-  const { setCurrentPageData } = useWebsiteStore();
   const currentPageData = useWebsiteStore((state) => state.currentPageData);
   const updateNavbarProps = useWebsiteStore((state) => state.updateNavbarProps);
   const updateComponentProps = useWebsiteStore((state) => state.updateComponentProps);
-  const websiteMaster = useWebsiteMasterStore((state) => state.websiteMaster);
-  const { switchToPage, currentPageIndex } = useWebsiteMasterStore();
+  const websiteData = useWebsiteStore((state) => state.websiteData);
+  const currentPageSlug = useWebsiteStore((state) => state.currentPageSlug);
+  const setCurrentPageSlug = useWebsiteStore((state) => state.setCurrentPageSlug);
 
   const {
     currentComponent,
@@ -66,13 +65,13 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
   let navbarProps = (navbarComponent?.props as NavbarProps) || initialProps;
 
   // Apply theme colors if they're missing from props but exist in theme
-  if (websiteMaster?.theme && (!navbarProps.textColor || !navbarProps.baseBgColor || !navbarProps.mainColor)) {
+  if (websiteData?.theme && (!navbarProps.textColor || !navbarProps.baseBgColor || !navbarProps.mainColor)) {
     navbarProps = {
       ...navbarProps,
-      textColor: navbarProps.textColor || websiteMaster.theme.colors.text?.primary || websiteMaster.theme.colors.navbar.text,
-      baseBgColor: navbarProps.baseBgColor || websiteMaster.theme.colors.navbar.background,
-      mainColor: navbarProps.mainColor || websiteMaster.theme.colors.primary,
-      hoverColor: navbarProps.hoverColor || websiteMaster.theme.colors.navbar.hover || websiteMaster.theme.colors.primary,
+      textColor: navbarProps.textColor || websiteData.theme.colors?.text?.primary || websiteData.theme.colors?.navbar?.text,
+      baseBgColor: navbarProps.baseBgColor || websiteData.theme.colors?.navbar?.background,
+      mainColor: navbarProps.mainColor || websiteData.theme.colors?.primary,
+      hoverColor: navbarProps.hoverColor || websiteData.theme.colors?.navbar?.hover || websiteData.theme.colors?.primary,
     };
   }
 
@@ -135,10 +134,10 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
     // Apply theme colors only if missing
     const updatedProps: Navbar1Props = {
       ...propsFromStore,
-      textColor: propsFromStore.textColor || websiteMaster?.theme?.colors.text?.primary || websiteMaster?.theme?.colors.navbar.text || "#1A1A1A",
-      baseBgColor: propsFromStore.baseBgColor || websiteMaster?.theme?.colors.navbar.background || "#FFFFFF",
-      mainColor: propsFromStore.mainColor || websiteMaster?.theme?.colors.primary || "#3B82F6",
-      hoverColor: propsFromStore.hoverColor || websiteMaster?.theme?.colors.navbar.hover || websiteMaster?.theme?.colors.primary || "#3B82F6",
+      textColor: propsFromStore.textColor || websiteData?.theme?.colors?.text?.primary || websiteData?.theme?.colors?.navbar?.text || "#1A1A1A",
+      baseBgColor: propsFromStore.baseBgColor || websiteData?.theme?.colors?.navbar?.background || "#FFFFFF",
+      mainColor: propsFromStore.mainColor || websiteData?.theme?.colors?.primary || "#3B82F6",
+      hoverColor: propsFromStore.hoverColor || websiteData?.theme?.colors?.navbar?.hover || websiteData?.theme?.colors?.primary || "#3B82F6",
     };
 
     // Only update if props actually changed (prevent infinite loop)
@@ -160,7 +159,7 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
       hasSyncedRef.current = true;
       return updatedProps;
     });
-  }, [id, currentPageData, websiteMaster?.theme]);
+  }, [id, currentPageData, websiteData?.theme]);
 
   // Focus text input when editing starts
   useEffect(() => {
@@ -177,59 +176,45 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
 
     console.log('🖱️ [Navbar1Edit] Tab clicked:', { type: item.type, label: item.label, href: item.href });
 
-    if (item.type === 'link' && item.href && websiteMaster) {
-      console.log('📋 [Navbar1Edit] Available pages:', websiteMaster.pages.map((p, i) => ({ index: i, slug: p.slug, name: p.pageName })));
-      console.log('📍 [Navbar1Edit] Current page index:', currentPageIndex);
+    // Normalize slugs for comparison
+    const normalizeSlug = (slug: string | undefined) => {
+      if (!slug) return '';
+      return slug.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
+    };
 
-      // Check if pages have valid slugs - if not, warn user to regenerate
-      const hasValidSlugs = websiteMaster.pages.some(p => p.slug && p.slug !== '');
-      if (!hasValidSlugs) {
-        console.error('⚠️ [Navbar1Edit] Pages have no slugs! This is an old website. Please generate a new one.');
-        alert('This website needs to be regenerated with the updated template. Please create a new website to use the page switcher feature.');
-        return;
-      }
-
-      // Normalize slugs for comparison
-      const normalizeSlug = (slug: string | undefined) => {
-        if (!slug) return '';
-        return slug.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
-      };
+    if (item.type === 'link' && item.href && websiteData?.pages) {
+      console.log('📋 [Navbar1Edit] Available pages:', websiteData.pages.map((p, i) => ({ index: i, slug: p.slug, name: p.pageName })));
+      console.log('📍 [Navbar1Edit] Current page slug:', currentPageSlug);
 
       const targetSlug = normalizeSlug(item.href);
+      const currentSlug = normalizeSlug(currentPageSlug);
       console.log('🎯 [Navbar1Edit] Looking for page with slug:', targetSlug);
 
       // Find the page by slug
-      const pageIndex = websiteMaster.pages.findIndex(p => {
+      const targetPage = websiteData.pages.find(p => {
         const pageSlug = normalizeSlug(p.slug);
         const match = pageSlug === targetSlug ||
                      (targetSlug === '' && (pageSlug === '' || pageSlug === 'index')) ||
                      (targetSlug === 'index' && pageSlug === '');
         if (match) {
-          console.log('✅ [Navbar1Edit] Found matching page:', { index: p, slug: p.slug, pageSlug });
+          console.log('✅ [Navbar1Edit] Found matching page:', { slug: p.slug, pageSlug });
         }
         return match;
       });
 
-      console.log('🔍 [Navbar1Edit] Page index found:', pageIndex);
-
-      if (pageIndex !== -1 && pageIndex !== currentPageIndex) {
-        console.log(`🔄 [Navbar1Edit] Switching to page: ${websiteMaster.pages[pageIndex].pageName}`);
-        switchToPage(pageIndex);
-      } else if (pageIndex === currentPageIndex) {
-        console.log(`ℹ️ [Navbar1Edit] Already on this page`);
-      } else {
+      if (targetPage && normalizeSlug(targetPage.slug) !== currentSlug) {
+        console.log(`🔄 [Navbar1Edit] Switching to page: ${targetPage.pageName}`);
+        setCurrentPageSlug(targetPage.slug || 'index');
+      } else if (!targetPage) {
         console.log(`⚠️ [Navbar1Edit] Page not found for href:`, item.href);
+      } else {
+        console.log(`ℹ️ [Navbar1Edit] Already on this page`);
       }
     } else if (item.type === 'scroll' && item.scrollTo) {
       // Check if we need to navigate to a different page first
-      if (item.targetPage && websiteMaster) {
-        const currentPage = websiteMaster.pages[currentPageIndex];
-        const normalizeSlug = (slug: string | undefined) => {
-          if (!slug) return '';
-          return slug.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
-        };
+      if (item.targetPage && websiteData?.pages) {
         const normalizedTargetPage = normalizeSlug(item.targetPage);
-        const normalizedCurrentPage = normalizeSlug(currentPage?.slug);
+        const normalizedCurrentPage = normalizeSlug(currentPageSlug);
 
         // Check if target page is home page
         const isTargetHome = normalizedTargetPage === '' || normalizedTargetPage === 'index' || normalizedTargetPage === '/';
@@ -239,7 +224,7 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
 
         if (needsPageSwitch) {
           // Find the target page
-          const targetPageIndex = websiteMaster.pages.findIndex(p => {
+          const targetPage = websiteData.pages.find(p => {
             const pageSlug = normalizeSlug(p.slug);
             if (isTargetHome) {
               return pageSlug === '' || pageSlug === 'index';
@@ -247,9 +232,9 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
             return pageSlug === normalizedTargetPage;
           });
 
-          if (targetPageIndex !== -1) {
-            console.log(`🔄 [Navbar1Edit] Switching to page for scroll: ${websiteMaster.pages[targetPageIndex].pageName}`);
-            switchToPage(targetPageIndex);
+          if (targetPage) {
+            console.log(`🔄 [Navbar1Edit] Switching to page for scroll: ${targetPage.pageName}`);
+            setCurrentPageSlug(targetPage.slug || 'index');
 
             // Schedule scroll after page switch (DOM needs time to update)
             setTimeout(() => {
@@ -290,10 +275,7 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
 
   // Helper: Check if a tab link points to the current page being edited
   const isCurrentPage = (tabHref: string): boolean => {
-    if (!websiteMaster || currentPageIndex === undefined) return false;
-
-    const currentPage = websiteMaster.pages[currentPageIndex];
-    if (!currentPage || !currentPage.slug) return false;
+    if (!currentPageSlug) return false;
 
     // Normalize paths (remove leading/trailing slashes)
     const normalizeSlug = (slug: string | undefined) => {
@@ -302,7 +284,7 @@ export const Navbar1Edit: React.FC<EditorialComponentProps> = ({ id }) => {
     };
 
     const normalizedHref = normalizeSlug(tabHref);
-    const normalizedCurrent = normalizeSlug(currentPage.slug);
+    const normalizedCurrent = normalizeSlug(currentPageSlug);
 
     // Handle index/home page
     if (normalizedCurrent === '' || normalizedCurrent === 'index') {
