@@ -74,7 +74,7 @@
           "componentCategory": "hero",
           "props": {
             "subTitle": "statistically guarnteed success",
-            "title": "information theory is cool!",
+            "title": "monorepo rage",
             "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -1132,7 +1132,7 @@
   "websiteName": "Unnamed Website",
   "projectName": "information-theory",
   "projectSlug": "information-theory",
-  "currentVersionNumber": 14,
+  "currentVersionNumber": 9,
   "initialPaymentCompleted": false,
   "initialPaymentRefunded": false,
   "deploymentPaymentCompleted": false,
@@ -1259,5 +1259,5 @@
     }
   },
   "createdAt": "2026-01-15T05:09:04.347Z",
-  "updatedAt": "2026-01-15T05:09:20.792Z"
+  "updatedAt": "2026-01-15T05:37:02.486Z"
 }
