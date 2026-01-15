@@ -140,7 +140,6 @@ export const createWebsiteDataSlice: StateCreator<
     const { CURRENT_BRANCH } = GITHUB_CONFIG;
     const actualBranch = branch || CURRENT_BRANCH;
 
-    console.log("🔵 [websiteDataSlice] Loading from GitHub:", { branch: actualBranch, versionNumber });
     set({ isLoading: true, error: null });
 
     try {
@@ -180,12 +179,15 @@ export const createWebsiteDataSlice: StateCreator<
       }
 
       const data = await response.json();
-      console.log("✅ [websiteDataSlice] Loaded from GitHub:", {
-        hasColorTheme: !!data.websiteData?.colorTheme,
-        pagesCount: Array.isArray(data.websiteData?.pages) 
-          ? data.websiteData.pages.length 
-          : Object.keys(data.websiteData?.pages || {}).length,
-        pagesIsArray: Array.isArray(data.websiteData?.pages),
+
+      // DEBUG: Log what we received from the API
+      const firstComponent = Array.isArray(data.websiteData?.pages)
+        ? data.websiteData.pages[0]?.components?.[0]
+        : (Object.values(data.websiteData?.pages || {}) as any[])[0]?.components?.[0];
+      console.log("🔍 [LOAD DEBUG] Received from API:", {
+        versionNumber,
+        firstComponentTitle: firstComponent?.props?.title,
+        firstComponentId: firstComponent?.id,
       });
 
       // Transform pages from array to object if needed
@@ -222,7 +224,6 @@ export const createWebsiteDataSlice: StateCreator<
           // Add the page with the unique slug
           pagesObject[uniqueSlug] = { ...page, slug: uniqueSlug };
         });
-        console.log("🔄 [websiteDataSlice] Converted pages array to object:", Object.keys(pagesObject));
       } else if (data.websiteData?.pages && typeof data.websiteData.pages === 'object') {
         // Already an object, use as-is
         pagesObject = data.websiteData.pages;
@@ -256,9 +257,6 @@ export const createWebsiteDataSlice: StateCreator<
 
       // Cache for offline support
       get()._saveToCache(websiteMaster);
-
-      console.log("✅ [websiteDataSlice] Successfully loaded and cached");
-      console.log("📸 [websiteDataSlice] Captured initial data hash for change tracking");
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to load from GitHub";
       console.error("❌ [websiteDataSlice] Error:", errorMessage);
@@ -290,7 +288,6 @@ export const createWebsiteDataSlice: StateCreator<
       throw new Error("No website data to save");
     }
 
-    console.log("💾 [websiteDataSlice] Saving to GitHub:", { branch: actualBranch });
     set({ isSaving: true, error: null }); // Use isSaving, not isLoading!
 
     try {
@@ -300,39 +297,20 @@ export const createWebsiteDataSlice: StateCreator<
         : 'src/data/websiteData.json';
 
       // Transform pages from object to array for GitHub storage
-      console.log("🔄 [SAVE DEBUG] Pages before transformation:", {
-        isArray: Array.isArray(state.websiteData?.pages),
-        type: typeof state.websiteData?.pages,
-        keys: state.websiteData?.pages ? Object.keys(state.websiteData.pages) : [],
-        pageCount: state.websiteData?.pages ? Object.keys(state.websiteData.pages).length : 0,
-      });
-
       const websiteDataForGitHub = {
         ...state.websiteData,
         pages: Object.values(state.websiteData?.pages || {}),
       };
 
-      console.log("🔄 [SAVE DEBUG] Pages after transformation:", {
-        isArray: Array.isArray(websiteDataForGitHub.pages),
-        type: typeof websiteDataForGitHub.pages,
-        pageCount: websiteDataForGitHub.pages?.length || 0,
-        firstPage: websiteDataForGitHub.pages?.[0] ? {
-          slug: websiteDataForGitHub.pages[0].slug,
-          pageName: websiteDataForGitHub.pages[0].pageName,
-          hasComponents: !!websiteDataForGitHub.pages[0].components,
-          componentCount: websiteDataForGitHub.pages[0].components?.length || 0,
-        } : null,
+      // DEBUG: Log what we're about to save
+      const firstComponent = websiteDataForGitHub.pages[0]?.components?.[0];
+      console.log("🔍 [SAVE DEBUG] About to save:", {
+        firstComponentTitle: firstComponent?.props?.title,
+        firstComponentId: firstComponent?.id,
+        pagesCount: websiteDataForGitHub.pages.length,
       });
 
-      // Parse back to check what's actually in the serialized JSON
       const serialized = JSON.stringify(websiteDataForGitHub, null, 2);
-      const parsedCheck = JSON.parse(serialized) as any;
-      console.log("🔍 [SAVE DEBUG] What's actually in the serialized JSON:", {
-        pagesIsArray: Array.isArray(parsedCheck.pages),
-        pagesCount: Array.isArray(parsedCheck.pages) ? parsedCheck.pages.length : Object.keys(parsedCheck.pages || {}).length,
-        firstPageSlug: Array.isArray(parsedCheck.pages) ? parsedCheck.pages[0]?.slug : (Object.values(parsedCheck.pages || {}) as any)[0]?.slug,
-        firstPageComponents: Array.isArray(parsedCheck.pages) ? parsedCheck.pages[0]?.components?.length : (Object.values(parsedCheck.pages || {}) as any)[0]?.components?.length,
-      });
 
       // Commit to GitHub (no repo params needed - API knows from config)
       const response = await fetch('/api/versions/create-github', {
@@ -355,7 +333,6 @@ export const createWebsiteDataSlice: StateCreator<
       }
 
       const data = await response.json();
-      console.log(`✅ [websiteDataSlice] Committed to GitHub: ${data.commitSha}`);
 
       // Also write to local file so it stays in sync
       try {
@@ -364,7 +341,6 @@ export const createWebsiteDataSlice: StateCreator<
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ content: serialized }),
         });
-        console.log(`✅ [websiteDataSlice] Updated local file: ${websiteDataPath}`);
       } catch (localWriteError) {
         console.warn(`⚠️ [websiteDataSlice] Failed to write local file (non-fatal):`, localWriteError);
       }
@@ -389,8 +365,6 @@ export const createWebsiteDataSlice: StateCreator<
       // Cache the updated data
       get()._saveToCache(updatedWebsiteData);
 
-      console.log(`✅ [websiteDataSlice] Updated to version ${data.versionNumber} (no reload needed)`);
-
       // Return commit data for URL update
       return {
         commitSha: data.commitSha,
@@ -408,8 +382,6 @@ export const createWebsiteDataSlice: StateCreator<
   refreshFromGitHub: async (
     branch?: string
   ) => {
-    console.log("🔄 [websiteDataSlice] Force refresh from GitHub");
-
     // Clear all caches
     get()._clearCache();
 
@@ -423,12 +395,10 @@ export const createWebsiteDataSlice: StateCreator<
 
     // Don't initialize if already loading or if we already have data
     if (state.isLoading || state.websiteData) {
-      console.log("🔵 [websiteDataSlice] Already loading or have data, skipping init");
       return;
     }
 
     set({ isLoading: true, error: null });
-    console.log("🔵 [websiteDataSlice] Initializing from GitHub...");
 
     try {
       // Get optional params from URL
@@ -436,29 +406,20 @@ export const createWebsiteDataSlice: StateCreator<
       const versionNumber = urlParams.get("version");
       const branch = urlParams.get("branch") || CURRENT_BRANCH;
 
-      console.log("🔵 [websiteDataSlice] Fetching from GitHub:", { branch, versionNumber });
-
       // Load from GitHub (repo info comes from config)
       await get().loadFromGitHub(
         branch,
         versionNumber ? parseInt(versionNumber) : undefined
       );
-
-      console.log("🔵 [websiteDataSlice] Successfully initialized from GitHub");
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to initialize from GitHub";
-      console.error("🔵 [websiteDataSlice] Error initializing from GitHub:", errorMessage);
+      console.error("[websiteDataSlice] Error initializing from GitHub:", errorMessage);
       set({ error: errorMessage, isLoading: false });
     }
   },
 
   // ===== DATA MUTATIONS =====
   setWebsiteData: (data) => {
-    console.log("🟢 [websiteDataSlice] setWebsiteData:", {
-      hasData: !!data,
-      pagesCount: Object.keys(data?.pages || {}).length,
-    });
-
     // Compute hasUnsavedChanges
     const state = get();
     let hasUnsavedChanges = false;
@@ -483,6 +444,15 @@ export const createWebsiteDataSlice: StateCreator<
     props: Record<string, any>,
     metadata?: { source?: string; prompt?: string }
   ) => {
+    // DEBUG: Log what's being updated
+    if (props.title !== undefined) {
+      console.log("🔍 [EDIT DEBUG] updateComponentProps called with title:", {
+        pageSlug,
+        componentId,
+        newTitle: props.title,
+      });
+    }
+
     const state = get();
     if (!state.websiteData) {
       console.warn("⚠️ [websiteDataSlice] updateComponentProps called but websiteData is null");
@@ -540,8 +510,6 @@ export const createWebsiteDataSlice: StateCreator<
       updatedAt: new Date(),
     };
 
-    console.log(`✅ [websiteDataSlice] Updated component ${componentId} in page ${pageSlug}:`, props);
-
     // Compute hasUnsavedChanges
     const currentHash = JSON.stringify(updatedWebsiteData);
     const hasUnsavedChanges = state.initialDataHash !== null && currentHash !== state.initialDataHash;
@@ -551,7 +519,6 @@ export const createWebsiteDataSlice: StateCreator<
       hasUnsavedChanges,
     });
 
-    console.log(`🔍 [websiteDataSlice] Change detection: {hasUnsavedChanges: ${hasUnsavedChanges}}`);
     get()._saveToCache(updatedWebsiteData);
 
     // Track edit history (if we have before/after components)
@@ -618,7 +585,6 @@ export const createWebsiteDataSlice: StateCreator<
     if (typeof window === 'undefined') return;
 
     localStorage.removeItem(CACHE_KEY);
-    console.log("🗑️ [websiteDataSlice] Cache cleared");
   },
 
   _loadFromCache: () => {
@@ -629,7 +595,6 @@ export const createWebsiteDataSlice: StateCreator<
       if (!cached) return null;
 
       const parsed = JSON.parse(cached);
-      console.log("📦 [websiteDataSlice] Loaded from cache");
       return parsed;
     } catch (error) {
       console.warn("⚠️ [websiteDataSlice] Failed to load from cache:", error);
@@ -642,7 +607,6 @@ export const createWebsiteDataSlice: StateCreator<
 
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-      console.log("💾 [websiteDataSlice] Saved to cache");
     } catch (error) {
       console.warn("⚠️ [websiteDataSlice] Failed to save to cache:", error);
     }

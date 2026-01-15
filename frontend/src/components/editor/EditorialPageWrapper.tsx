@@ -63,14 +63,12 @@ export default function EditorialPageWrapper({
     
     // If we already have data, don't reload
     if (websiteData) {
-      console.log('📦 [EditorialPageWrapper] Data already exists, skipping load');
       hasLoadedRef.current = true;
       return;
     }
 
     // If we've already attempted to load, don't reload
     if (hasLoadedRef.current) {
-      console.log('📦 [EditorialPageWrapper] Already loaded once, skipping reload');
       return;
     }
 
@@ -81,7 +79,6 @@ export default function EditorialPageWrapper({
     const versionParam = searchParams.get('version');
     const versionNumber = versionParam ? parseInt(versionParam) : undefined;
 
-    console.log('📦 [EditorialPageWrapper] Initial load from GitHub (one-time only)');
     // Load from GitHub (uses config defaults)
     loadFromGitHub(undefined, versionNumber);
   }, []); // Empty deps - only run once on mount, but we guard with ref to prevent re-loads

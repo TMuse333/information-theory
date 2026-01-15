@@ -39,11 +39,6 @@ export function useWebsiteSave() {
     const dryRunFlag = localStorage.getItem("save-dry-run") === "true";
     const dryRun = dryRunParam === "true" || dryRunFlag;
 
-    if (dryRun) {
-      console.log("🧪 [DRY RUN] Save mode enabled - No GitHub API calls will be made");
-      console.log("🧪 [DRY RUN] To disable, remove ?dryRun=true from URL or run: localStorage.removeItem('save-dry-run')");
-    }
-
     setIsSaving(true);
 
     try {
@@ -81,29 +76,10 @@ export function useWebsiteSave() {
           : 'src/data/websiteData.json';
 
         // Transform pages from object to array for GitHub storage
-        console.log("🔄 [SAVE DEBUG] Pages before transformation:", {
-          isArray: Array.isArray(store.websiteData?.pages),
-          type: typeof store.websiteData?.pages,
-          keys: store.websiteData?.pages ? Object.keys(store.websiteData.pages) : [],
-          pageCount: store.websiteData?.pages ? Object.keys(store.websiteData.pages).length : 0,
-        });
-
         const websiteDataForGitHub = {
           ...store.websiteData,
           pages: Object.values(store.websiteData?.pages || {}),
         };
-
-        console.log("🔄 [SAVE DEBUG] Pages after transformation:", {
-          isArray: Array.isArray(websiteDataForGitHub.pages),
-          type: typeof websiteDataForGitHub.pages,
-          pageCount: websiteDataForGitHub.pages?.length || 0,
-          firstPage: websiteDataForGitHub.pages?.[0] ? {
-            slug: websiteDataForGitHub.pages[0].slug,
-            pageName: websiteDataForGitHub.pages[0].pageName,
-            hasComponents: !!websiteDataForGitHub.pages[0].components,
-            componentCount: websiteDataForGitHub.pages[0].components?.length || 0,
-          } : null,
-        });
 
         const serialized = JSON.stringify(websiteDataForGitHub, null, 2);
 
@@ -125,14 +101,10 @@ export function useWebsiteSave() {
         let githubData;
         if (dryRun) {
           // DRY RUN: Simulate API response
-          console.log("🧪 [DRY RUN] Would call: POST /api/versions/create-github");
-          console.log("🧪 [DRY RUN] Would commit files:", filesToCommit.map(f => f.path));
-          console.log("🧪 [DRY RUN] Would use commit message:", finalCommitMessage);
           githubData = {
             commitSha: "dry-run-commit-sha-" + Date.now(),
             versionNumber: (store.websiteData?.currentVersionNumber || 0) + 1,
           };
-          console.log(`🧪 [DRY RUN] Simulated commit: ${githubData.commitSha}`);
         } else {
           const githubResponse = await fetch('/api/versions/create-github', {
             method: 'POST',
@@ -150,7 +122,6 @@ export function useWebsiteSave() {
           }
 
           githubData = await githubResponse.json();
-          console.log(`✅ [useWebsiteSave] Committed to GitHub: ${githubData.commitSha}`);
         }
 
         // Also write to local file so it stays in sync (skip in dry run)
@@ -161,12 +132,9 @@ export function useWebsiteSave() {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ content: serialized }),
             });
-            console.log(`✅ [useWebsiteSave] Updated local file: ${websiteDataPath}`);
           } catch (localWriteError) {
-            console.warn(`⚠️ [useWebsiteSave] Failed to write local file (non-fatal):`, localWriteError);
+            console.warn("[useWebsiteSave] Failed to write local file (non-fatal):", localWriteError);
           }
-        } else {
-          console.log(`🧪 [DRY RUN] Would write local file: ${websiteDataPath}`);
         }
 
         // Update store with the saved data (no reload needed - data is already in sync)
@@ -183,7 +151,6 @@ export function useWebsiteSave() {
         newSearchParams.delete('version'); // Remove version param to show latest
         const newUrl = `${window.location.pathname}${newSearchParams.toString() ? `?${newSearchParams.toString()}` : ''}`;
         window.history.replaceState({}, '', newUrl);
-        console.log(`🔄 [useWebsiteSave] Updated URL to show latest version (commit: ${githubData.commitSha}, no reload)`);
 
         setPreviewStructuralChanges(null);
       } else {
@@ -195,15 +162,11 @@ export function useWebsiteSave() {
         let saveResult;
         if (dryRun) {
           // DRY RUN: Simulate save
-          console.log("🧪 [DRY RUN] Would call: store.saveToGitHub()");
-          console.log("🧪 [DRY RUN] Branch:", branch);
-          console.log("🧪 [DRY RUN] Commit message:", finalCommitMessage);
           saveResult = {
             commitSha: "dry-run-commit-sha-" + Date.now(),
             versionNumber: (store.websiteData?.currentVersionNumber || 0) + 1,
           };
-          console.log(`🧪 [DRY RUN] Simulated save result:`, saveResult);
-          
+
           // Still update store state for testing (but mark as dry run)
           const updatedWebsiteData = {
             ...store.websiteData,
@@ -211,7 +174,6 @@ export function useWebsiteSave() {
             updatedAt: new Date(),
           };
           store.setWebsiteData(updatedWebsiteData);
-          console.log(`🧪 [DRY RUN] Updated store state (for testing)`);
         } else {
           saveResult = await store.saveToGitHub(branch, finalCommitMessage);
         }
@@ -221,7 +183,6 @@ export function useWebsiteSave() {
         newSearchParams.delete('version'); // Remove version param to show latest
         const newUrl = `${window.location.pathname}?${newSearchParams.toString()}`;
         window.history.replaceState({}, '', newUrl);
-        console.log(`🔄 [useWebsiteSave] Updated URL to show latest version (commit: ${saveResult.commitSha})`);
 
         if (recentOpenAIEdit) {
           setRecentOpenAIEdit(null);
@@ -240,34 +201,13 @@ export function useWebsiteSave() {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       const editHistory = useEditHistoryStore.getState();
-      const saveTimestamp = Date.now();
-      
-      // Get current unsaved edits count before marking as saved (for logging)
-      const unsavedBefore = editHistory.getUnsavedEdits().length;
-      
       editHistory.markAsSaved();
-      
-      // Verify unsaved edits are cleared
-      const unsavedAfter = editHistory.getUnsavedEdits().length;
-      console.log(`💾 [useWebsiteSave] Marked edits as saved at timestamp: ${saveTimestamp}`);
-      console.log(`💾 [useWebsiteSave] Unsaved edits before: ${unsavedBefore}, after: ${unsavedAfter}`);
-      
-      if (unsavedAfter > 0) {
-        console.warn(`⚠️ [useWebsiteSave] Still have ${unsavedAfter} unsaved edits after marking as saved. These were likely added after the save.`);
-      }
 
       // The store's saveToGitHub already updates the state with the saved data
       // No need to reload from GitHub - data is already in sync
       
       setSaveSuccess(true);
       setShowCommitModal(false);
-
-      if (dryRun) {
-        console.log("🧪 [DRY RUN] Save simulation complete!");
-        console.log("🧪 [DRY RUN] No actual GitHub API calls were made");
-        console.log("🧪 [DRY RUN] Store state was updated for testing purposes");
-        alert("🧪 DRY RUN MODE\n\nSave simulation complete! No actual GitHub API calls were made.\n\nTo disable dry run, remove ?dryRun=true from URL or run:\nlocalStorage.removeItem('save-dry-run')");
-      }
 
       // Dispatch event for any listeners (like version control panel)
       window.dispatchEvent(new CustomEvent("versionCreated"));
@@ -278,7 +218,6 @@ export function useWebsiteSave() {
       newSearchParams.delete('version');
       const newUrl = `${window.location.pathname}${newSearchParams.toString() ? `?${newSearchParams.toString()}` : ''}`;
       window.history.replaceState({}, '', newUrl);
-      console.log(`🔄 [useWebsiteSave] Updated URL to show latest version (no page reload)`);
     } catch (error) {
       console.error("Error saving website:", error);
       alert(`Failed to save: ${error instanceof Error ? error.message : "Unknown error"}`);

@@ -29,17 +29,6 @@ export default function VersionControlPanel() {
   const unsavedEdits = editHistory.getUnsavedEdits();
   const hasUnsavedChanges = unsavedEdits.length > 0 || fileChangeHistory.length > 0 || hasStoreChanges;
 
-  // Debug logging
-  useEffect(() => {
-    console.log("🔘 [VersionControl] Save button state:", {
-      hasStoreChanges,
-      unsavedEditsCount: unsavedEdits.length,
-      fileChangeHistoryCount: fileChangeHistory.length,
-      hasUnsavedChanges,
-      buttonShouldBeEnabled: hasUnsavedChanges && !isSaving,
-    });
-  }, [hasStoreChanges, unsavedEdits.length, fileChangeHistory.length, hasUnsavedChanges, isSaving]);
-
   // Get repo info from config (no state needed!)
   const { REPO_OWNER, REPO_NAME, CURRENT_BRANCH } = GITHUB_CONFIG;
 
@@ -65,8 +54,6 @@ export default function VersionControlPanel() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchVersions = async () => {
-    console.log("📋 [VersionControl] Fetching versions from GitHub");
-
     setLoading(true);
     try {
       // Get branch from search params or default to CURRENT_BRANCH
@@ -114,10 +101,8 @@ export default function VersionControlPanel() {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set('version', versionNumber.toString());
       window.history.replaceState({}, '', currentUrl.pathname + currentUrl.search);
-
-      console.log(`✅ [VersionControl] Switched to version ${versionNumber}`);
     } catch (error) {
-      console.error("❌ [VersionControl] Error switching version:", error);
+      console.error("[VersionControl] Error switching version:", error);
       alert(`Failed to load version: ${error instanceof Error ? error.message : "Unknown error"}`);
     } finally {
       setSwitchingVersion(null);

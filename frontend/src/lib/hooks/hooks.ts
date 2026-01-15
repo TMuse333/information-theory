@@ -46,19 +46,15 @@ export const handleComponentClick = async ({
 
   // ✅ GUARD: Skip if already fetching for this component
   if (isFetchingComponentIntro && lastFetchedComponent === componentDetails.name) {
-    console.log('⏭️ [handleComponentClick] Already fetching intro for', componentDetails.name);
     return;
   }
 
   // ✅ GUARD: Skip if we just fetched this component (prevent rapid re-clicks)
   if (lastFetchedComponent === componentDetails.name) {
-    console.log('⏭️ [handleComponentClick] Already fetched intro for', componentDetails.name);
     // Still update the current component but skip API call
     setCurrentComponent(componentDetails);
     return;
   }
-
-  console.log('🖱️ [handleComponentClick] Clicked component:', componentDetails.name);
   
   // Set current component first
   setCurrentComponent(componentDetails);
@@ -251,8 +247,6 @@ export function useSyncColorEdits<T extends Partial<BaseColorProps>>(
   useEffect(() => {
     if (currentComponentName !== targetComponentName || !colorEdits) return;
 
-    console.log(`🎨 [useSyncColorEdits] Syncing color edits for ${targetComponentName}:`, colorEdits);
-
     setComponentProps((prev: T) => {
       const updated: T = { ...prev, ...colorEdits };
     
@@ -336,9 +330,7 @@ export function useSyncColorEdits<T extends Partial<BaseColorProps>>(
       
       // API route will create the edit history entry with full metadata
       // We just update the store here
-      console.log(`💾 [useSyncColorEdits] Updating store for component ${finalComponentId}:`, propsToUpdate);
       updateComponentProps(currentPageSlug, finalComponentId, propsToUpdate);
-      console.log(`✅ COLOR CHANGED AND JSON UPDATED SUCCESSFULLY for component ${finalComponentId}`);
     }
     
   }, [currentComponentName, targetComponentName, colorEdits, finalComponentId, updateComponentProps, currentPageData, currentPageSlug]);
@@ -438,7 +430,6 @@ export function useSyncPageDataToComponent<T extends object>(
 
     const componentInstance = currentPageData.components?.find((c: any) => c.id === componentId);
     if (!componentInstance || !componentInstance.props) {
-      console.warn(`⚠️ [useSyncPageDataToComponent] Component ${componentId} not found in page ${currentPageSlug}`);
       return;
     }
 
@@ -455,8 +446,6 @@ export function useSyncPageDataToComponent<T extends object>(
     }
 
     debounceTimerRef.current = setTimeout(() => {
-      console.log(`🔄 [useSyncPageDataToComponent] Syncing props for ${componentId} from store to component`);
-      console.log(`🔄 [useSyncPageDataToComponent] Props:`, componentInstance.props);
       lastSyncedHashRef.current = propsHash;
       setComponentProps((prev) => ({ ...prev, ...structuredClone(componentInstance.props) }));
     }, 50);

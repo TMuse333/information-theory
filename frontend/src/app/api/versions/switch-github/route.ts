@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   try {
     const { REPO_OWNER, REPO_NAME, CURRENT_BRANCH, GITHUB_TOKEN } = GITHUB_CONFIG;
 
-    console.log("🟢 [switch-github API] Request received");
+    console.log("🟢 [switch-github API] Request received - CODE VERSION: 2026-01-15-v2-raw-url");
     const body = await req.json();
     console.log("🟢 [switch-github API] Request body:", body);
     const { commitSha, versionNumber } = body;
@@ -23,15 +23,19 @@ export async function POST(req: NextRequest) {
     if (!targetCommitSha && versionNumber) {
       const headers: Record<string, string> = {
         Accept: "application/vnd.github.v3+json",
+        "Cache-Control": "no-cache",
+        "If-None-Match": "", // Bypass ETag caching
       };
 
       if (GITHUB_TOKEN) {
         headers.Authorization = `token ${GITHUB_TOKEN}`;
       }
 
+      // Add timestamp to bypass caching
+      const timestamp = Date.now();
       const commitsResponse = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?sha=${CURRENT_BRANCH}&per_page=100`,
-        { headers }
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?sha=${CURRENT_BRANCH}&per_page=100&_t=${timestamp}`,
+        { headers, cache: 'no-store' }
       );
 
       if (!commitsResponse.ok) {
@@ -63,6 +67,8 @@ export async function POST(req: NextRequest) {
     // Get the commit details
     const commitHeaders: Record<string, string> = {
       Accept: "application/vnd.github.v3+json",
+      "Cache-Control": "no-cache",
+      "If-None-Match": "",
     };
 
     if (GITHUB_TOKEN) {
@@ -70,8 +76,8 @@ export async function POST(req: NextRequest) {
     }
 
     const commitResponse = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${targetCommitSha}`,
-      { headers: commitHeaders }
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${targetCommitSha}?_t=${Date.now()}`,
+      { headers: commitHeaders, cache: 'no-store' }
     );
 
     if (!commitResponse.ok) {
@@ -90,6 +96,8 @@ export async function POST(req: NextRequest) {
     // Get the tree to find websiteData.json
     const treeHeaders: Record<string, string> = {
       Accept: "application/vnd.github.v3+json",
+      "Cache-Control": "no-cache",
+      "If-None-Match": "",
     };
 
     if (GITHUB_TOKEN) {
@@ -97,8 +105,8 @@ export async function POST(req: NextRequest) {
     }
 
     const treeResponse = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${treeSha}?recursive=1`,
-      { headers: treeHeaders }
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${treeSha}?recursive=1&_t=${Date.now()}`,
+      { headers: treeHeaders, cache: 'no-store' }
     );
 
     if (!treeResponse.ok) {
@@ -123,34 +131,36 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Get the file content
-    const fileHeaders: Record<string, string> = {
-      Accept: "application/vnd.github.v3+json",
-    };
+    // DEBUG: Log what blob SHA we're about to fetch
+    console.log("🔍 [switch-github API] Tree SHA:", treeSha);
+    console.log("🔍 [switch-github API] websiteData.json blob SHA:", websiteDataFile.sha);
+    console.log("🔍 [switch-github API] Commit SHA being processed:", targetCommitSha);
 
-    if (GITHUB_TOKEN) {
-      fileHeaders.Authorization = `token ${GITHUB_TOKEN}`;
-    }
+    // Use raw.githubusercontent.com to bypass GitHub API caching
+    // This fetches the file directly from the commit
+    const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${targetCommitSha}/${websiteDataFile.path}`;
+    console.log("🔍 [switch-github API] Fetching from raw URL:", rawUrl);
 
-    const fileResponse = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/blobs/${websiteDataFile.sha}`,
-      { headers: fileHeaders }
-    );
+    const fileResponse = await fetch(rawUrl, {
+      headers: {
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+      },
+      cache: 'no-store',
+    });
 
     if (!fileResponse.ok) {
-      const errorData = await fileResponse.json().catch(() => ({}));
       return NextResponse.json(
-        { error: `Failed to get file: ${errorData.message || fileResponse.statusText}` },
+        { error: `Failed to get file from raw URL: ${fileResponse.statusText}` },
         { status: fileResponse.status }
       );
     }
 
-    const fileData = await fileResponse.json();
+    const content = await fileResponse.text();
 
-    // Decode the content (it's base64 encoded)
+    // Decode the content
     let websiteData;
     try {
-      const content = Buffer.from(fileData.content, "base64").toString("utf-8");
 
       // Log first 500 chars of raw JSON to see what GitHub actually returned
       console.log("📄 [switch-github API] RAW JSON from GitHub (first 500 chars):", content.substring(0, 500));

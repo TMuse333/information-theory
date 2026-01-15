@@ -36,12 +36,10 @@ export const createEditorSlice: StateCreator<
 
   // ===== ACTIONS =====
   setCurrentPageSlug: (slug) => {
-    console.log("📄 [editorSlice] Setting current page:", slug);
     set({ currentPageSlug: slug, selectedComponentId: null }); // Clear selection when changing pages
   },
 
   setEditorMode: (mode) => {
-    console.log("✏️ [editorSlice] Setting editor mode:", mode);
     set({ editorMode: mode });
 
     // Clear selection when exiting editor mode
@@ -51,14 +49,12 @@ export const createEditorSlice: StateCreator<
   },
 
   setSelectedComponentId: (id) => {
-    console.log("🎯 [editorSlice] Selecting component:", id);
     set({ selectedComponentId: id });
   },
 
   toggleEditorMode: () => {
     set((state) => {
       const newMode = !state.editorMode;
-      console.log("🔄 [editorSlice] Toggling editor mode:", newMode);
 
       return {
         editorMode: newMode,
