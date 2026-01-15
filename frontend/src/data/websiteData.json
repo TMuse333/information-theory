@@ -73,7 +73,7 @@
           "context": "A hero banner at the top to introduce branding",
           "componentCategory": "hero",
           "props": {
-            "subTitle": "Transform Your Decisions",
+            "subTitle": "statistically guarnteed success",
             "title": "information theory is cool!",
             "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
             "array": [],
@@ -1132,7 +1132,7 @@
   "websiteName": "Unnamed Website",
   "projectName": "information-theory",
   "projectSlug": "information-theory",
-  "currentVersionNumber": 0,
+  "currentVersionNumber": 14,
   "initialPaymentCompleted": false,
   "initialPaymentRefunded": false,
   "deploymentPaymentCompleted": false,
@@ -1257,5 +1257,7 @@
       "radialPosition": "50% 0%",
       "radialBaseStop": 50
     }
-  }
+  },
+  "createdAt": "2026-01-15T05:09:04.347Z",
+  "updatedAt": "2026-01-15T05:09:20.792Z"
 }
