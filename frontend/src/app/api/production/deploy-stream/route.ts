@@ -30,6 +30,9 @@ function sendEvent(controller: ReadableStreamDefaultController, event: string, d
 export async function POST(request: NextRequest) {
   const encoder = new TextEncoder();
 
+  // Get base URL from request (works in both local dev and production)
+  const baseUrl = request.nextUrl.origin;
+
   const stream = new ReadableStream({
     async start(controller) {
       try {
@@ -174,7 +177,7 @@ export async function POST(request: NextRequest) {
         // SEO generation commented out to save tokens
         // try {
         //   const seoResponse = await fetch(
-        //     `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/assistant/generate-seo-batch`,
+        //     `${baseUrl}/api/assistant/generate-seo-batch`,
         //     {
         //       method: 'POST',
         //       headers: { 'Content-Type': 'application/json' },
@@ -289,7 +292,7 @@ export async function POST(request: NextRequest) {
 
           try {
             const reviewResponse = await fetch(
-              `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/assistant/review-deployment`,
+              `${baseUrl}/api/assistant/review-deployment`,
               {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -471,7 +474,7 @@ export async function POST(request: NextRequest) {
 
             // Call the Vercel deployment API
             const deployResponse = await fetch(
-              `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/vercel/deploy-production`,
+              `${baseUrl}/api/vercel/deploy-production`,
               {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

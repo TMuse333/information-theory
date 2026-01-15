@@ -416,48 +416,6 @@
           }
         },
         {
-          "id": "uniqueValueProposition-3",
-          "type": "uniqueValueProposition",
-          "order": 3,
-          "context": "A 3 column grid where you can display unique value propositions about your service",
-          "componentCategory": "textComponent",
-          "props": {
-            "subTitle": "Why Choose Us?",
-            "title": "Unique Value Propositions of FastTrack",
-            "array": [
-              {
-                "title": "Data-Driven Insights",
-                "description": "Make informed decisions with actionable insights.",
-                "type": "StandardText"
-              },
-              {
-                "title": "Expert Guidance",
-                "description": "Receive support from industry professionals.",
-                "type": "StandardText"
-              },
-              {
-                "title": "Trustworthy Solutions",
-                "description": "Earn and maintain client trust through transparency.",
-                "type": "StandardText"
-              },
-              {
-                "title": "Innovative Techniques",
-                "description": "Stay ahead with our cutting-edge strategies.",
-                "type": "StandardText"
-              }
-            ],
-            "mainColor": "#00BFFF",
-            "textColor": "#FFFFFF",
-            "baseBgColor": "#000000",
-            "bgLayout": {
-              "type": "radial",
-              "radialSize": "125% 125%",
-              "radialPosition": "50% 0%",
-              "radialBaseStop": 50
-            }
-          }
-        },
-        {
           "id": "processSteps-4",
           "type": "processSteps",
           "order": 4,

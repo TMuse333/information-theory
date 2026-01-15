@@ -56,8 +56,14 @@ src/
 export async function validateProductionCodebase(
   generatedFiles: Array<{ path: string; content: string }>
 ): Promise<ValidationResult> {
+  // Skip validation if API key is not set
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log('⚠️ [Claude Validation] ANTHROPIC_API_KEY not set, skipping AI validation');
+    return { valid: true, errors: [] };
+  }
+
   const fileList = generatedFiles.map(f => `- ${f.path}`).join('\n');
-  
+
   const prompt = `
 This is a final check before pushing to production. Make sure all components render correctly and I have the correct codebase structure.
 

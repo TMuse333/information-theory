@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rocket, AlertCircle } from 'lucide-react';
 
@@ -9,14 +9,22 @@ interface AppNameModalProps {
   onConfirm: (appName: string) => void;
   onCancel: () => void;
   existingAppName?: string;
+  suggestedAppName?: string; // Pre-populate from REPO_NAME
 }
 
-export default function AppNameModal({ isOpen, onConfirm, onCancel, existingAppName }: AppNameModalProps) {
-  const [appName, setAppName] = useState(existingAppName || '');
+export default function AppNameModal({ isOpen, onConfirm, onCancel, existingAppName, suggestedAppName }: AppNameModalProps) {
+  const [appName, setAppName] = useState(existingAppName || suggestedAppName || '');
   const [error, setError] = useState<string | null>(null);
 
   // If app name already exists, it's locked
   const isLocked = !!existingAppName;
+
+  // Pre-populate with suggested name when modal opens (if not locked and empty)
+  useEffect(() => {
+    if (isOpen && !isLocked && !appName && suggestedAppName) {
+      setAppName(suggestedAppName.toLowerCase().replace(/[^a-z0-9-]/g, ''));
+    }
+  }, [isOpen, suggestedAppName, isLocked]);
 
   // Get custom domain from environment
   const customDomain = process.env.NEXT_PUBLIC_DOMAIN_NAME;

@@ -71,9 +71,7 @@ export function useWebsiteSave() {
 
       if (previewStructuralChanges) {
         // For structural changes, we need to commit multiple files
-        const websiteDataPath = process.env.NEXT_PUBLIC_REPO_TYPE === 'monorepo'
-          ? 'frontend/src/data/websiteData.json'
-          : 'src/data/websiteData.json';
+        const websiteDataPath = 'frontend/src/data/websiteData.json';
 
         // Transform pages from object to array for GitHub storage
         const websiteDataForGitHub = {

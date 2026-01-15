@@ -148,17 +148,20 @@ export default function VersionControlPanel() {
     );
   }
 
-  // Get current version from URL param (most accurate), websiteData, or latest
-  const urlVersion = searchParams.get("version");
-  const currentVersion = urlVersion 
-    ? parseInt(urlVersion, 10) 
-    : (typeof websiteData?.currentVersionNumber === 'number' 
-        ? websiteData.currentVersionNumber 
-        : (versions.length > 0 ? versions[0].versionNumber : 0));
-  
-  // Ensure currentVersion is a valid number (not NaN)
-  const safeCurrentVersion = isNaN(currentVersion) ? (versions.length > 0 ? versions[0].versionNumber : 0) : currentVersion;
+  // Sort versions first (newest first)
   const sortedVersions = [...versions].sort((a, b) => b.versionNumber - a.versionNumber);
+  const latestVersion = sortedVersions.length > 0 ? sortedVersions[0].versionNumber : 0;
+
+  // Get current version from URL param (most accurate), websiteData, or default to latest
+  const urlVersion = searchParams.get("version");
+  const currentVersion = urlVersion
+    ? parseInt(urlVersion, 10)
+    : (typeof websiteData?.currentVersionNumber === 'number'
+        ? websiteData.currentVersionNumber
+        : latestVersion);
+
+  // Ensure currentVersion is a valid number (not NaN)
+  const safeCurrentVersion = isNaN(currentVersion) ? latestVersion : currentVersion;
 
   return (
     <div className="h-full flex flex-col">

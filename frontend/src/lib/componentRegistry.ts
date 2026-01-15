@@ -329,11 +329,11 @@ export const PRODUCTION_COMPONENTS: Record<string, ComponentRegistryEntry> = {
     propsImportPath: '@/components/designs/textComponents/textAndList/textAndList',
     category: 'text',
   },
-  valueProposition: {
-    componentImportPath: '@/components/designs/textComponents/valueProposition/valueProposition',
-    componentName: 'UniqueValueProposition',
+  uniqueValueProposition: {
+    componentImportPath: '@/components/designs/textComponents/uniqueValueProposition/uniqueValuePropositionEdit',
+    componentName: 'UniqueValuePropositionEdit',
     propsTypeName: 'UniqueValuePropositionProps',
-    propsImportPath: '@/components/designs/textComponents/valueProposition/valueProposition',
+    propsImportPath: '@/components/designs/textComponents/uniqueValueProposition/uniqueValuePropositionEdit',
     category: 'text',
   },
 

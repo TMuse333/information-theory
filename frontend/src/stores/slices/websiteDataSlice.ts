@@ -292,9 +292,7 @@ export const createWebsiteDataSlice: StateCreator<
 
     try {
       // Determine file path
-      const websiteDataPath = process.env.NEXT_PUBLIC_REPO_TYPE === 'monorepo'
-        ? 'frontend/src/data/websiteData.json'
-        : 'src/data/websiteData.json';
+      const websiteDataPath = 'frontend/src/data/websiteData.json';
 
       // Transform pages from object to array for GitHub storage
       const websiteDataForGitHub = {

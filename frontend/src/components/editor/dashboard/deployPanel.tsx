@@ -474,6 +474,7 @@ export default function DeployPanel() {
         onConfirm={handleAppNameConfirm}
         onCancel={() => setShowAppNameModal(false)}
         existingAppName={appName!}
+        suggestedAppName={process.env.NEXT_PUBLIC_REPO_NAME || GITHUB_CONFIG.REPO_NAME}
       />
 
       {/* Deployment Confirmation Modal */}
