@@ -73,8 +73,8 @@
           "context": "A hero banner at the top to introduce branding",
           "componentCategory": "hero",
           "props": {
-            "subTitle": "Transform Your Decisions",
-            "title": "info theory Is great!",
+            "subTitle": "statistically guarnteed success",
+            "title": "information theory driven development ",
             "description": "Unlock the potential of your data with our innovative solutions that reduce uncertainty and enhance decision-making.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -353,7 +353,7 @@
           "componentCategory": "carousel",
           "props": {
             "subTitle": "Transforming Your Decisions",
-            "title": "Empowering Choices with Information Theory",
+            "title": "information theory is cool!",
             "description": "We leverage cutting-edge information theory to minimize uncertainty in critical decision-making processes.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -688,7 +688,7 @@
           "context": "A herobanneris great to show some statistics of your career and nice property in the other half",
           "componentCategory": "hero",
           "props": {
-            "title": "Your Trusted Real Estate Partner",
+            "title": "information theory is cool!",
             "subTitle": "Expert Guidance for Every Step",
             "description": "With years of experience, we navigate the real estate market to find your dream property.",
             "array": [
@@ -1039,7 +1039,7 @@
           "componentCategory": "hero",
           "props": {
             "subTitle": "Empowering Your Decisions",
-            "title": "Harness Information Theory for Better Choices",
+            "title": "information theory is cool!",
             "description": "We specialize in reducing uncertainty in important decisions, ensuring you make informed choices with confidence.",
             "array": [],
             "mainColor": "#00BFFF",
@@ -1132,7 +1132,7 @@
   "websiteName": "Unnamed Website",
   "projectName": "information-theory",
   "projectSlug": "information-theory",
-  "currentVersionNumber": 8,
+  "currentVersionNumber": 14,
   "initialPaymentCompleted": false,
   "initialPaymentRefunded": false,
   "deploymentPaymentCompleted": false,
@@ -1258,6 +1258,6 @@
       "radialBaseStop": 50
     }
   },
-  "createdAt": "2026-01-15T03:29:39.337Z",
-  "updatedAt": "2026-01-15T03:29:47.438Z"
+  "createdAt": "2026-01-15T05:09:04.347Z",
+  "updatedAt": "2026-01-15T05:33:09.378Z"
 }
